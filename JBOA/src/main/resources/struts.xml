@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC  
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"  
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 处理中文乱码 -->
+	<constant name="struts.i18n.encoding" value="utf-8" />
+	<!-- 启用动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+	<!-- 设置用户界面主题，默认值为XHTML风格 -->
+	<constant name="struts.ui.theme" value="simple" />
+	
+	<package name="json_login" namespace="/login" extends="json-default">
+		<!-- 员工登录 -->
+		<action name="login" class="cn.jboa.action.EmployeeAction"
+			method="login">
+			<result type = "json">
+				<param name="root">result</param>
+			</result>
+		</action>
+	</package>
+	
+	<!-- 默认包 -->
+	<package name="default" namespace="/" extends="struts-default">
+		<!-- 生成验证码 -->
+		<action name="random" class="cn.jboa.action.RandomNumAction">
+			<result type="stream">
+				<param name="contentType">image/jpeg</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+
+	<!-- 报销单功能 -->
+	<package name="claimvoucher" namespace="/jsp/claim"
+		extends="struts-default">
+
+		<!-- 全局默认结果跳转页面 -->
+		<global-results>
+			<result name="error">error.jsp</result>
+		</global-results>
+
+
+		<!-- 添加报销单 -->
+		<action name="claimVoucher_*"
+			class="cn.jboa.action.ClaimVoucherAction" method="{1}">
+			<result name="redirectList" type="redirectAction">claimVoucher_searchClaimVoucher</result>
+			<result name="list">claim_voucher_list.jsp</result>
+			<result name="view">claim_voucher_view.jsp</result>
+			<result name="toUpdate">claim_voucher_update.jsp</result>
+			<result name="toCheck">claim_voucher_check.jsp</result>
+		</action>
+		
+		<action name="checkResult_*" method="{1}" class="cn.jboa.action.CheckResultAction">
+			<result name="redirectList" type="redirectAction">claimVoucher_searchClaimVoucher</result>
+		</action>
+	</package>
+	
+	<!-- 请假功能 -->
+	<package name="leave" namespace="/jsp/leave"
+		extends="struts-default">
+
+		<!-- 全局默认结果跳转页面 -->
+		<global-results>
+			<result name="error">error.jsp</result>
+		</global-results>
+
+		<action name="leave_*" method="{1}" class="cn.jboa.action.LeaveAction">
+			<result name="toEdit">leave_edit.jsp</result>
+			<result name="redirectList" type="redirectAction">leave_searchLeave</result>
+			<result name="list">leave_list.jsp</result>
+			<result name="toCheck">leave_check.jsp</result>
+			<result name="leaveDetail">leave_view.jsp</result>
+		</action>
+	</package>
+</struts>

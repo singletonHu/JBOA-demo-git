@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+	
+		<!-- 基本信息配置 -->
+		<!-- 数据库连接信息 -->
+		<property name="connection.url">jdbc:oracle:thin:@127.0.0.1:1521:orcl</property>
+		<property name="connection.username">scott</property>
+		<property name="connection.password">123456</property>
+		<property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+		
+		<!-- 数据库方言，平台特性 -->
+		<property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		
+		<!-- 指定当前session范围和上下文 -->
+		<property name="current_session_context_class">thread</property>
+		
+		<!-- 是否输出sql语句 -->
+		<property name="show_sql">true</property>
+		
+		<!-- 是否格式化sql语句 -->
+		<property name="format_sql">true</property>
+		
+		
+		<!-- 映射配置 -->
+		<mapping class="cn.jboa.entity.CheckResult" />
+		<mapping class="cn.jboa.entity.ClaimVoucher" />
+		<mapping class="cn.jboa.entity.ClaimVoucherDetail" />
+		<mapping class="cn.jboa.entity.Department" />
+		<mapping class="cn.jboa.entity.Employee" />
+		<mapping class="cn.jboa.entity.Leave" />
+		<mapping class="cn.jboa.entity.Position" />
+	</session-factory>
+</hibernate-configuration>
